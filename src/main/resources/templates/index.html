@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+  <head>
+  
+   <title> Processo Seletivo </title>
+    <meta charset="utf-8">
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+   <style>
+    #menuCartorios {
+      margin-top:50%;
+    }
+    .boxM{
+     width:50%;
+    }
+    .buttonM{
+   background-color: blue;
+    } 
+   </style>
+   
+   
+  </head>
+  <body>
+     <br />  
+    <center>
+     <h3> Sistema CRUD Docket </h3>
+     <p> Atividade do processo seletivo!   </p>
+
+
+    <br />    
+  <div class="boxM">
+    
+  
+       
+    <button onclick="abrirCadastro()" type="button" class="btn btn-outline-primary">Cadastrar</button>
+    <button onclick="Alterar()" type="button" class="btn btn-outline-primary">Alterar</button>
+    <button onclick="visualizar()" type="button" class="btn btn-outline-primary">Visualizar</button>
+    <button onclick="excluirr()" type="button" class="btn btn-outline-primary">Excluir</button>
+    <button onclick="abrirListarTudo()"type="button" class="btn btn-outline-primary">Listar Todos Registros</button>
+     
+   
+  
+  </div>  
+    </center>
+    
+  </body>
+  
+  
+  <script type="text/javascript">
+ 
+  
+  //Redirect ->
+  function abrirCadastro() {
+	  location.replace("/cadastrar")
+  };
+  function abrirListarTudo() {
+	  location.replace("/listar")
+  };
+  function excluirr() {
+	  location.replace("/excluir")
+  }; 
+  
+  function Alterar() {
+	  location.replace("/alterar")
+  }; 
+ 
+
+  function visualizar() {
+	  location.replace("/visualizar")
+  };   
+		  
+   </script>
+ </html>

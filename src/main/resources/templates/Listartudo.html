@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+  <head>
+   <meta charset="utf-8">
+   <title> CRUD CARTÓRIO </title>
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+   <style>
+    #boxcartorios {
+      margin-top:10px;
+    }
+    .box{
+     width:50%;
+    }
+ 
+   </style>
+   <script type="text/javascript">
+ 
+   function Voltar() {
+		  location.replace("/")
+	  };
+   
+   
+
+  
+  
+   function Consultar(){
+	    var data = null;
+	  	var xhr = new XMLHttpRequest();
+	  	xhr.onreadystatechange = function () {
+	          if(xhr.readyState === XMLHttpRequest.DONE) {
+	              console.log(xhr.status);
+	              if (xhr.status == 200)	    {     
+	           var dadostabela = JSON.parse(this.responseText);
+	              var HTML;
+	              HTML = '<table style="width:100%" class="table table-sm"><tr><th scope="col">ID</th><th scope="col">NOME</th> </tr>';
+	
+	              for (x = 0; x < dadostabela.length; x++) {
+	                  HTML += '<tr><th scope="row">';
+	                  HTML += dadostabela[x].id;
+	            	  HTML += '</th><th scope="row">';
+	                  HTML += dadostabela[x].nome;
+	                  HTML += '</th><th id="tipo" scope="row">';
+	                  HTML += '</th><th scope="row">';	           
+	              document.getElementById("boxcartorios").innerHTML = HTML;            	           
+	              console.log(this.responseText);   
+	              }
+	            }
+	              HTML += '</table';
+	          }	   
+	  	}
+	  	xhr.open("GET", "http://localhost:9001/cartorios");
+	  	xhr.setRequestHeader("Content-Type", "application/json");
+	  	xhr.setRequestHeader("Cache-Control", "no-cache");
+	  	xhr.send(data); 	
+ };
+ 
+ 
+
+		  
+		  
+   </script>
+   
+  </head>
+  <body onload="Consultar()">
+     <br />  
+    <center>
+     <h3> Sistema CRUD Cartório </h3>
+     <p> Listar Tudo !   </p>
+     
+    <br />    
+  <div class="box">
+    
+  
+       
+
+
+    <button onclick="Consultar()" type="button" class="btn btn-outline-primary">Listar Tudo</button>
+        <button onclick="Voltar()" type="button" class="btn btn-outline-primary">Voltar</button>
+     
+   
+   <div id="boxcartorios">   
+    </div>
+  
+  </div>  
+    </center>
+    
+  </body>
+ </html>

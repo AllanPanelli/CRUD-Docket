@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+  <head>
+   <meta charset="utf-8">
+   <title> CRUD CARTÓRIO </title>
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+   <style>
+    #boxcartorios {
+      margin-top:10px;
+    }
+    .box{
+     width:50%;
+    }
+ 
+   </style>
+   <script type="text/javascript">
+ 
+   function Voltar() {
+		  location.replace("/");
+	  }
+   
+	function Editar(){	  
+			  var url = "http://localhost:9001/cartorio/put";
+			  
+			  var data = {};
+		        respId = document.getElementById("id").value;
+			  	respNome = document.getElementById("nome").value;
+		  	
+			  	data.id = respId;
+			  	data.nome = respNome;
+	  
+			  	
+			  var json = JSON.stringify(data);
+
+			  var xhr = new XMLHttpRequest();
+			  xhr.open("PUT", url);
+			  xhr.setRequestHeader('Content-type','application/json; charset=utf-8');
+			  xhr.onload = function () {
+			  	var users = JSON.parse(xhr.responseText);
+			  	if (xhr.readyState == 4 && xhr.status == "200") {
+			  		console.table(users);
+			  		alert("Atualizado com sucesso!");
+			  		 location.reload();
+			  	} else {
+			  		console.error(users);
+			  		alert("Não foi possivel atualizar!");
+			  	}
+			  }
+			  xhr.send(json);
+			  
+			  
+		  };
+		  
+	function show(responseText){
+		  	data = JSON.parse(responseText);	
+		  	if(data==null) {
+		  		alert("Nada Encontrado!")
+		  	  document.getElementById("id").value = "";
+          	  document.getElementById("nome").value = "";
+        	    		  		
+		  	}else{
+
+		  	respId = document.getElementById("id");
+		  	respNome = document.getElementById("nome");  	
+
+		  	 respId.value =  data.id; 
+		     respNome.value = data.nome;
+
+		  
+		  	}
+		  }
+		  
+	  function Consultar(){
+		    var data = null;
+		  	var xhr = new XMLHttpRequest();
+		  	xhr.onreadystatechange = function () {
+		          if(xhr.readyState === XMLHttpRequest.DONE) {
+		              console.log(xhr.status);
+		              if (xhr.status == 200)	    {     
+		           var dadostabela = JSON.parse(this.responseText);
+		              var HTML;
+		              HTML = '<table style="width:100%" class="table table-sm"><tr><th scope="col">ID</th><th scope="col">NOME</th> </tr>';
+		
+		              for (x = 0; x < dadostabela.length; x++) {
+		                  HTML += '<tr><th scope="row">';
+		                  HTML += dadostabela[x].id;
+		            	  HTML += '</th><th scope="row">';
+		                  HTML += dadostabela[x].nome;
+		                  HTML += '</th><th id="tipo" scope="row">';
+		                  HTML += '</th><th scope="row">';	           
+		              document.getElementById("boxcartorios").innerHTML = HTML;            	           
+		              console.log(this.responseText);   
+		              }
+		            }
+		              HTML += '</table';
+		          }	   
+		  	}
+		  	xhr.open("GET", "http://localhost:9001/cartorios");
+		  	xhr.setRequestHeader("Content-Type", "application/json");
+		  	xhr.setRequestHeader("Cache-Control", "no-cache");
+		  	xhr.send(data); 	
+	 };
+	  
+   </script>
+   
+  </head>
+  <body onload="Consultar()">
+     <br />  
+    <center>
+     <h3> Sistema CRUD Cartório </h3>
+     <p> Alterar !   </p>
+     
+    <br />    
+  <div class="box">
+    
+    <input id="id" class="form-control-lg" type="text" placeholder="ID" />  
+    
+     <br />
+    <br/>
+    <input id="nome" class="form-control-lg" type="text" placeholder="NOME" />     
+     
+     <br />  
+       <br/>
+
+    <button onclick="Editar()" type="button" class="btn btn-outline-primary">Editar</button>
+    <button onclick="Voltar()" type="button" class="btn btn-outline-primary">Voltar</button>
+     
+   
+   <div id="boxcartorios">   
+    </div>
+  
+  </div>  
+    </center>
+    
+  </body>
+ </html>
